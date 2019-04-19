@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ProCliente - Loja',
+      title: 'Dod Vagas',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(30, 42, 56, 1.0),
         fontFamily: 'roboto',
