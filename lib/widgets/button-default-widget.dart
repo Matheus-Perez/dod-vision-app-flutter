@@ -27,7 +27,7 @@ class ButtonDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    backgroundColor = (backgroundColor != null)? backgroundColor : UsefulWidget.verdeClaro;
+    backgroundColor = (backgroundColor != null)? backgroundColor : UsefulWidget.secondColor;
     fontFamily = (fontFamily != null)? fontFamily : 'robotoThin';
 
     return InkWell(

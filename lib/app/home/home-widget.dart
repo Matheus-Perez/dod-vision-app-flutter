@@ -3,6 +3,7 @@ import 'package:vagas_dod/app/home/home-bloc.dart';
 import 'package:vagas_dod/widgets/button-default-widget.dart';
 import 'package:vagas_dod/widgets/subtitle-default-widget.dart';
 import 'package:vagas_dod/widgets/useful-widget.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -34,43 +35,60 @@ class _HomeWidgetState extends State<HomeWidget> {
       ),
       body: Container(
         padding: EdgeInsets.all(25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: <Widget>[
-            SubTitleDefault(texto: 'Para enviar a foto basta clicar no botão'),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                SubTitleDefault(
+                    texto: 'Para enviar a foto basta clicar no botão'),
 
-            // Loading do botão 
-            StreamBuilder<bool>(
-                stream: bloc?.buttonLoadingFlux,
-                initialData: false,
-                builder: (context, snapshot) {
-                  return ButtonDefault(
-                      texto: 'Tirar Foto',
-                      loading: snapshot.data,
-                      onTap: () => bloc?.catchpicture());
-                }),
+                // Loading do botão
+                StreamBuilder<bool>(
+                    stream: bloc?.buttonLoadingFlux,
+                    initialData: false,
+                    builder: (context, snapshot) {
+                      return ButtonDefault(
+                          texto: 'Tirar Foto',
+                          loading: snapshot.data,
+                          onTap: () => bloc?.catchpicture());
+                    }),
 
-            // Caminho da imagem
-            StreamBuilder<String>(
-                stream: bloc?.txtImageFlux,
-                builder: (context, snapshot) {
-                  String texto = (snapshot.data != null) ? snapshot.data : '';
-                  return SubTitleDefault(texto: texto);
-                }),
+                SizedBox(height: 10),
 
-            // mensagem de erro
-            StreamBuilder<String>(
-                stream: bloc?.txtErroFlux,
-                initialData: null,
-                builder: (context, snapshot) {
-                  String texto = (snapshot.data != null) ? snapshot.data : '';
+                // Apresenta a imagem
+                StreamBuilder<String>(
+                    stream: bloc?.txtImageFlux,
+                    builder: (context, snapshot) {
+                      Widget widgetSelecionado;
+                      
+                      if (snapshot.data != null) {
+                        widgetSelecionado = FadeInImage.assetNetwork(
+                          height: 300,
+                          image: snapshot.data,
+                          placeholder: 'assets/gif/loading.gif',
+                        );
+                      } else {
+                        widgetSelecionado = Container();
+                      }
+                      return widgetSelecionado;
+                    }),
 
-                  return SubTitleDefault(
-                    texto: texto,
-                    fontColor: Colors.red,
-                  );
-                })
+                // mensagem de erro
+                StreamBuilder<String>(
+                    stream: bloc?.txtErroFlux,
+                    initialData: null,
+                    builder: (context, snapshot) {
+                      String texto =
+                          (snapshot.data != null) ? snapshot.data : '';
+
+                      return SubTitleDefault(
+                        texto: texto,
+                        fontColor: Colors.red,
+                      );
+                    })
+              ],
+            ),
           ],
         ),
       ),

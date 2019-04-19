@@ -31,6 +31,9 @@ dependencies:
   rxdart: ^0.21.0
   # Manipulação da camera
   image_picker: ^0.5.3+2
+  # Carregando de imagen na internet
+  transparent_image: ^1.0.0
+
 
 
 dev_dependencies:
@@ -50,8 +53,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+    - assets/gif/loading.gif
+    #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

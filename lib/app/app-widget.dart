@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vagas_dod/app/home/home-widget.dart';
 import 'package:vagas_dod/app/splash-widget.dart';
+import 'package:vagas_dod/widgets/useful-widget.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Dod Vagas',
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(30, 42, 56, 1.0),
+        primaryColor: UsefulWidget.primaryColor,
         fontFamily: 'roboto',
       ),
       routes: <String, WidgetBuilder>{

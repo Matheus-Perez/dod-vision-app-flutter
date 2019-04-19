@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vagas_dod/services/api.dart';
@@ -38,7 +39,7 @@ class HomeBloc {
         String base64Image = base64Encode(image.readAsBytesSync());
         String final_image = await api.sendPicture(image: base64Image);
         // Apresenta ela para o usuario
-        this.txtImageEvent.add('final_image: ${final_image}');
+        this.txtImageEvent.add('https://tv.dodvision.com/${final_image}');
       }
       // remove o loading do botão
       this?.buttonLoadingEvent?.add(false);
@@ -46,8 +47,19 @@ class HomeBloc {
       print(error);
       // remove o loading
       this?.buttonLoadingEvent?.add(false);
+      // Pega o tipo do erro para apresetar
+      String mensagem;
+      if(error is PlatformException){
+        PlatformException erro = error;
+        mensagem = erro.message;
+      }else if(error is String){
+         mensagem = error;
+      }else{
+         mensagem = 'Houston, temos um problema';
+      }
+
       // Retorna o erro para o usuario
-      this.txtErroEvent.add('Ops, tivemos um erro, tente novamente mais tarde');
+      this.txtErroEvent.add(mensagem);
     }
   }
 
